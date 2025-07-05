@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>うちの子まとめ - キャラクター一覧</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chara_list.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="site-title">うちの子まとめ</h1>
+      <p class="site-subtitle">キャラクター一覧</p>
+    </header>
+
+    <section class="filter-section">
+      <div class="filter-buttons" id="filter-buttons">
+        <!-- フィルターボタンがここに動的に挿入される -->
+      </div>
+    </section>
+
+    <main class="character-grid" id="character-grid">
+      <!-- ここにキャラクターカードが動的に挿入される -->
+    </main>
+  </div>
+
+  <script>
+    // ========================================
+    // ユーザーが編集する部分（ここだけ変更すればOK）
+    // ========================================
+    
+    const characters = [
+      {
+        name: "サトゥルノ",
+        description: "120cm妖精",
+        image: "",
+        tags: ["Questnotes","アコライト"],
+        link: "#",
+        available: false
+      },
+      {
+        name: "バロン",
+        description: "顔と口が悪すぎる好青年　流血魔法戦士",
+        image: "baron/icon.png",
+        tags: ["Questnotes", "ウォーロック"],
+        link: "baron/index.html",
+        available: true
+      },
+      {
+        name: "ミオニー",
+        description: "大翼の守護者",
+        image: "mionie/icon.png",
+        tags: ["Questnotes", "ナイト"],
+        link: "mionie/index.html",
+        available: true
+      },
+      {
+        name: "メラキス", 
+        description: "水中都市の剣闘士",
+        image: "",
+        tags: ["Questnotes", "フェンサー"],
+        link: "#",
+        available: false
+      },
+      {
+        name: "煌魔",
+        description: "", 
+        image: "",
+        tags: ["Questnotes", "アサシン"],
+        link: "#",
+        available: false
+      },
+      {
+        name: "玉兎システム",
+        description: "",
+        image: "",
+        tags: ["Questnotes", "アストロロジャ"],
+        link: "#",
+        available: false
+      },
+    ];
+
+    // ========================================
+    // 以下は自動処理部分（編集不要）
+    // ========================================
+    
+    let currentFilter = 'all'; // 現在のフィルター状態
+    
+    function createCharacterCard(character) {
+      const imageContent = character.image 
+        ? `<img src="${character.image}" alt="${character.name}" />`
+        : `<div class="placeholder-image">?</div>`;
+      
+      const tagsHtml = character.tags
+        .map(tag => `<span class="tag">${tag}</span>`)
+        .join('');
+      
+      const linkText = character.available ? "詳細を見る" : "Coming Soon";
+      const linkClass = character.available ? "character-link" : "character-link disabled";
+      
+      return `
+        <div class="character-card">
+          <div class="character-image">
+            ${imageContent}
+          </div>
+          <div class="character-info">
+            <h2 class="character-name">${character.name}</h2>
+            <p class="character-description">${character.description}</p>
+            <div class="character-tags">
+              ${tagsHtml}
+            </div>
+            <a href="${character.link}" class="${linkClass}">${linkText}</a>
+          </div>
+        </div>
+      `;
+    }
+
+    function getAllTags() {
+      const allTags = new Set();
+      characters.forEach(character => {
+        character.tags.forEach(tag => allTags.add(tag));
+      });
+      return Array.from(allTags).sort();
+    }
+
+    function createFilterButtons() {
+      const filterContainer = document.getElementById('filter-buttons');
+      const allTags = getAllTags();
+      
+      // 「すべて」ボタン
+      const allButton = `<button class="filter-btn active" data-filter="all">すべて</button>`;
+      
+      // 各タグのボタン
+      const tagButtons = allTags
+        .map(tag => `<button class="filter-btn" data-filter="${tag}">${tag}</button>`)
+        .join('');
+      
+      filterContainer.innerHTML = allButton + tagButtons;
+      
+      // フィルターボタンのクリックイベント
+      filterContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('filter-btn')) {
+          // アクティブ状態の切り替え
+          document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+          e.target.classList.add('active');
+          
+          // フィルタリング実行
+          currentFilter = e.target.dataset.filter;
+          renderCharacters();
+        }
+      });
+    }
+
+    function getFilteredCharacters() {
+      if (currentFilter === 'all') {
+        return characters;
+      }
+      return characters.filter(character => 
+        character.tags.includes(currentFilter)
+      );
+    }
+
+    function renderCharacters() {
+      const grid = document.getElementById('character-grid');
+      const filteredCharacters = getFilteredCharacters();
+      
+      if (filteredCharacters.length === 0) {
+        grid.innerHTML = '<div class="no-results">該当するキャラクターがありません</div>';
+        return;
+      }
+      
+      const cardsHtml = filteredCharacters
+        .map(character => createCharacterCard(character))
+        .join('');
+      grid.innerHTML = cardsHtml;
+    }
+
+    // ページ読み込み時に実行
+    document.addEventListener('DOMContentLoaded', () => {
+      createFilterButtons();
+      renderCharacters();
+    });
+  </script>
+</body>
+</html>

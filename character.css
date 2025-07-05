@@ -1,0 +1,339 @@
+/* Sample 4: Modern Grid Layout */
+
+/* QNスキル名のスタイル */
+.qn-skill-name {
+  color: #888 !important;
+  font-size: 0.9rem;
+  margin-top: 0.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* 引用ブロック（技の説明）のスタイル */
+blockquote {
+  border-left: 4px solid #555;
+  margin: 1rem 0;
+  padding-left: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0 8px 8px 0;
+}
+
+blockquote p {
+  margin: 0.5rem 0;
+}
+
+blockquote p.empty-line {
+  margin: 0;
+  height: 1.0rem;
+  line-height: 1.0rem;
+}
+
+/* リンクのスタイル */
+a {
+  color: #66ccff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #99ddff;
+  border-bottom: 1px solid #66ccff;
+}
+
+/* フィルターボタンのスタイル */
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #444;
+  background: #2a2a2a;
+  color: #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.filter-btn:hover {
+  background: #3a3a3a;
+  border-color: #555;
+}
+
+.filter-btn.active {
+  background: #4a9eff;
+  border-color: #4a9eff;
+  color: white;
+}
+
+/* ストーリータグのスタイル */
+.story-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.story-tag {
+  background: #333;
+  color: #ccc;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #111;
+  color: #f0f0f0;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid #333;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-avatar {
+  flex-shrink: 0;
+}
+
+.avatar-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #444;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: #666;
+  border-radius: 2px;
+}
+
+.info-section {
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #333;
+}
+
+.info-content h1 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.info-content h2 {
+  font-size: 1.4rem;
+  color: #ddd;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.info-content h3 {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.info-content p {
+  margin: 1rem 0;
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.info-content ul {
+  list-style: none;
+  margin: 1rem 0;
+}
+
+.info-content li {
+  padding: 0.25rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #ddd;
+}
+
+.info-content li::before {
+  content: '•';
+  position: absolute;
+  left: 0.5rem;
+  color: #666;
+  font-weight: bold;
+}
+
+.info-content strong {
+  color: #fff;
+  font-weight: 500;
+  background: #333;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+
+.stories-section {
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #333;
+}
+
+.stories-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.story-card {
+  background: #222;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+.story-card:hover {
+  background: #2a2a2a;
+  border-color: #444;
+  transform: translateY(-2px);
+}
+
+.story-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.story-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.story-card-tag {
+  background: #333;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.story-card-subtitle {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.story-card-desc {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.story-card-cta {
+  display: inline-block;
+  background: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.story-card-cta:hover {
+  background: #444;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-section,
+  .stories-section {
+    padding: 1.5rem;
+  }
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ミオニー ― キャラクター設定</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../character.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-content">
+        <div class="hero-avatar">
+          <img src="icon.png" alt="ミオニーのアイコン" class="avatar-image" />
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-title">ミオニー</h1>
+          <p class="hero-subtitle">大空の守護者 ― 羽ばたく盾</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <section class="info-section">
+        <div class="section-header">
+          <h2 class="section-title">キャラクター情報</h2>
+        </div>
+        <div class="info-content">
+          <div id="character-content">
+            <!-- ここにMarkdown風コンテンツが挿入される -->
+          </div>
+        </div>
+      </section>
+
+      <section class="stories-section">
+        <div class="section-header">
+          <h2 class="section-title">ストーリー</h2>
+        </div>
+        <div id="story-filter-buttons" class="filter-buttons">
+          <!-- フィルターボタンが挿入される -->
+        </div>
+        <div class="stories-grid" id="story-list">
+          <!-- ここにストーリーリストが挿入される -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // ========================================
+    // ユーザーが編集する部分（ここだけ変更すればOK）
+    // ========================================
+    
+    // キャラクター情報（Markdown風記法）
+    const characterMarkdown = `
+
+# プロフィール
+- **フルネーム**: ミオニー
+- **性別**: あるのか？
+- **体高**: 240cm
+- **体重**: 170kg
+- **一人称**: 私
+- **二人称**: 君
+- **種族**: 不明
+---
+
+# 基本情報
+- **職業**: 冒険者（ナイト）
+- **性格**: 冷静、思慮深い、仲間思い
+- **好きなもの**: 
+- **嫌いなもの**: 
+---
+
+# 外見イメージ
+- **瞳の色・形**: 澄んだ青
+- **羽の色**: 青白く光る
+- **体格**: 大型の鳥類、可変サイズ
+- **特徴**: 腹部に謎の光、大きな尾、もふもふの羽毛
+---
+
+# 装備・特殊能力
+## 身体的特徴
+- **大きな羽**: 薙ぎ払ったり、守ったりする。箒にもなる。
+- **もふもふの羽毛**: 触り心地が良くて、温かいらしい。
+- **大きな尾**: 2対の硬質な尾。主に防御に使用。守護の象徴。クルミとか割れる。
+- **腹部の光**: 正体不明。本人もよく分からない。「この胸部？腹部？の光、怖くて触ったことがないんだよね。」「こんな禍々しい部分、触りたくないよ……。」
+
+## 戦闘スタイル
+質量パワータイプ。デカくて硬いから盾役というだけ。それだけだが、それこそが強み。
+
+---
+
+# 人物像
+大型の鳥類のような人外でありながら、人語を流暢に話す。
+普段は他の冒険者の召喚獣やペットのふりをすることで、混乱を避けるようにしている。
+
+冷静で思慮深く、仲間思いの性格。特に守護的な意識が強く、戦闘では積極的に仲間を庇う。
+礼儀正しく謙虚で、助けられた際は「恩に着るよ」が決まり文句。
+
+妙に人の世に慣れ、現実的な視点を持ち、「世知辛いね…」といった世間への感想も漏らしたりする。
+
+---
+
+# 技能・スキル
+
+## ■ これの後ろに
+（QNスキル名：ガーディアン）
+> その大きな尾や翼で、味方や自分を攻撃から守る。
+> 呪いは今や祝福であり、仲間を守るために前線で盾となる。
+> 
+> **発動時テキスト**: 巨躯が立ち塞がる！
+
+## ■ 私が相手だ
+（QNスキル名：フルディフェンス）
+> 硬い尾が悪意を阻む。
+> 最も硬い部位である尾を盾にして、仲間や自分を守る。
+> 
+> **発動時テキスト**: 2本の尻尾が渦巻き状に絡まり、盾となる！
+> **発動時台詞**: 通さないよ。皆、
+
+## ■ 少し痛いよ
+（QNスキル名：シールドバッシュ）
+> 圧倒的巨躯から放たれる、翼での薙ぎ払い。
+> ただただシンプルな攻撃。質量で押しつぶし打ち払う。
+> 
+> **発動時テキスト**: 両の翼で薙ぎ払う！
+
+## ■ 【呪霧超克の暈】
+（QNスキル名：ラストスタンド）
+> それは、呪霧を超克した証。
+> それは、赤い霧に包まれた銀の里への誓い。
+> それは、生きなければならない理由を思い出させるもの。
+> それは、ただの悪あがき。
+> 
+> 「それに、私も連れて行ってくれないか」
+> 
+> **発動時テキスト**: 胸部の空洞から空色に光る液体が零れ落ちる……。
+> **発動時台詞**: ここで倒れるわけにはいかない。
+
+
+---
+<br>
+<details class="hidden-profile">
+<summary>トウマ</summary>
+
+# プロフィール
+- **フルネーム**: トウマ
+- **年齢**: 30歳手前ぐらいらしい……？
+- **誕生日**: 7月5日
+- **性別**: 男
+- **身長**: 180cm
+- **出身地**: 凍てついた渓谷の里、ジンメ
+- **一人称**: 私
+- **二人称**: 君
+- **種族**: 人間
+---
+
+# 基本情報
+- **職業**: 御魂流し（みたまながし）
+- **性格**: 冷静、思慮深い、仲間思い
+- **好きなもの**: 善い事　
+- **嫌いなもの**: 悪い事
+---
+
+# 外見イメージ
+- **瞳の色・形**: 澄んだ青、タレ目
+- **髪の色・髪型**: 空色、ミドルヘア
+- **体格・肌の色**: 締まった体格、健康的な肌色
+
+</details>
+
+    `;
+
+    // ストーリーリスト
+    const stories = [
+/*      {
+        title: "守護者の日常",
+        subtitle: "仲間と過ごす冒険の記録",
+        description: "セッションログより",
+        link: "#",
+        tags: ["セッションログ", "日常"]
+      }
+ */   ];
+
+    // ========================================
+    // 以下は自動処理部分（編集不要）
+    // ========================================
+    
+    function parseMarkdown(markdown) {
+      let html = markdown.trim();
+      
+      // Headers
+      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+      
+      // Bold
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      
+      // Links [text](url)
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      
+      // Horizontal rule
+      html = html.replace(/^---$/gm, '<br><hr><br>');
+      
+      // QN skill names (薄い色のスタイル)
+      html = html.replace(/^\（QNスキル名：(.+)\）$/gm, '<p class="qn-skill-name">（QNスキル名：$1）</p>');
+      
+      // Blockquotes (引用部分)
+      // 引用ブロックを処理する関数
+      html = html.replace(/(^>.*(\n|$))+/gm, (match) => {
+        // 各行から > を除去し、内容を取得
+        const lines = match.split('\n').filter(line => line.startsWith('>')).map(line => {
+          // > の後の内容を取得（スペースも考慮）
+          return line.replace(/^>\s?/, '');
+        });
+        
+        // 各行を個別にpタグで処理（空行も保持）
+        const paragraphs = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (line.trim() === '') {
+            // 空行の場合は空のpタグを追加してスペースを作る
+            paragraphs.push(`<p class="empty-line"></p>`);
+          } else {
+            // 内容がある行は個別のパラグラフとして追加
+            paragraphs.push(`<p>${line}</p>`);
+          }
+        }
+        
+        return `<blockquote>${paragraphs.join('')}</blockquote>`;
+      });
+      
+      // Lists
+      html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+      html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+      
+      // Paragraphs
+      html = html.replace(/^([^<\n].*)$/gm, '<p>$1</p>');
+      
+      // Clean up
+      html = html.replace(/<p>(<h[1-6]>.*<\/h[1-6]>)<\/p>/g, '$1');
+      html = html.replace(/<p>(<ul>.*<\/ul>)<\/p>/gs, '$1');
+      html = html.replace(/<p>(<br><hr><br>)<\/p>/g, '$1');
+      html = html.replace(/<p>(<blockquote>.*<\/blockquote>)<\/p>/gs, '$1');
+      
+      return html;
+    }
+
+    // フィルタリング用変数
+    let currentStoryFilter = 'all';
+    
+    function renderStories(stories, filter = 'all') {
+      const filteredStories = filter === 'all' 
+        ? stories 
+        : stories.filter(story => story.tags.includes(filter));
+        
+      return filteredStories.map(story => {
+        const tagsHtml = story.tags
+          .map(tag => `<span class="story-tag">${tag}</span>`)
+          .join('');
+          
+        return `
+          <div class="story-card">
+            <div class="story-card-header">
+              <h3 class="story-card-title">${story.title}</h3>
+              <div class="story-card-tags">${tagsHtml}</div>
+            </div>
+            <p class="story-card-subtitle">${story.subtitle}</p>
+            <p class="story-card-desc">${story.description}</p>
+            <a href="${story.link}" class="story-card-cta">読む</a>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function getAllStoryTags() {
+      const allTags = new Set();
+      stories.forEach(story => {
+        story.tags.forEach(tag => allTags.add(tag));
+      });
+      return Array.from(allTags).sort();
+    }
+    
+    function createStoryFilterButtons() {
+      const filterContainer = document.getElementById('story-filter-buttons');
+      const allTags = getAllStoryTags();
+      
+      // 「すべて」ボタン
+      const allButton = `<button class="filter-btn active" data-filter="all">すべて</button>`;
+      
+      // 各タグのボタン
+      const tagButtons = allTags
+        .map(tag => `<button class="filter-btn" data-filter="${tag}">${tag}</button>`)
+        .join('');
+      
+      filterContainer.innerHTML = allButton + tagButtons;
+      
+      // フィルターボタンのクリックイベント
+      filterContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('filter-btn')) {
+          // アクティブ状態の切り替え
+          document.querySelectorAll('#story-filter-buttons .filter-btn').forEach(btn => btn.classList.remove('active'));
+          e.target.classList.add('active');
+          
+          // フィルター適用
+          const filterValue = e.target.getAttribute('data-filter');
+          currentStoryFilter = filterValue;
+          document.getElementById('story-list').innerHTML = renderStories(stories, filterValue);
+        }
+      });
+    }
+
+    // ページ読み込み時に実行
+    document.addEventListener('DOMContentLoaded', () => {
+      // キャラクター情報を表示
+      document.getElementById('character-content').innerHTML = parseMarkdown(characterMarkdown);
+      
+      // フィルターボタンを作成
+      createStoryFilterButtons();
+      
+      // ストーリーリストを表示
+      document.getElementById('story-list').innerHTML = renderStories(stories);
+    });
+  </script>
+</body>
+</html>
