@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<root>
+<ArrayOfString xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd=" http://www.w3.org/2001/XMLSchema">
   <string>リュックサック</string>
   <string>荷物を背負うための袋。一旦ここに置いとこう。</string>
   <string>天球儀</string>
@@ -12,4 +12,4 @@
   <string>宴会の準備は万端だ！</string>
   <string>テレビ</string>
   <string>映像受信装置。機械文明が発達したどこかの国や誰かが、映像を流しているらしい。</string>
-</root>
+</ArrayOfString>
