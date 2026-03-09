@@ -431,7 +431,8 @@ function getFilteredItems() {
   return allItems.filter(item => {
     if (searchText) {
       const s = searchText.toLowerCase();
-      if (!item.jaName.toLowerCase().includes(s) &&
+      const jaName = item.jaName || item.name;
+      if (!jaName.toLowerCase().includes(s) &&
           !item.name.toLowerCase().includes(s) &&
           !item.id.toLowerCase().includes(s)) return false;
     }
@@ -454,12 +455,12 @@ function getSortedItems(items) {
     } else if (sortCol === 'id') {
       av = a.id; bv = b.id;
     } else if (sortCol === 'jaName') {
-      av = a.jaName; bv = b.jaName;
+      av = a.jaName || a.name; bv = b.jaName || b.name;
     } else if (MATTER_TYPES.includes(sortCol)) {
       av = a.matter[sortCol] || 0;
       bv = b.matter[sortCol] || 0;
     } else {
-      av = a.jaName; bv = b.jaName;
+      av = a.jaName || a.name; bv = b.jaName || b.name;
     }
     if (typeof av === 'string') return sortDir * av.localeCompare(bv, 'ja');
     return sortDir * (av - bv);
@@ -499,8 +500,8 @@ function render() {
     return `
     <tr>
       <td>
-        <div class="item-name-ja">${escHtml(item.jaName)}</div>
-        ${item.jaName !== item.name ? `<div class="item-name-en">${escHtml(item.name)}</div>` : ''}
+        <div class="item-name-ja">${escHtml(item.jaName || item.name)}</div>
+        ${(item.jaName && item.jaName !== item.name) ? `<div class="item-name-en">${escHtml(item.name)}</div>` : ''}
       </td>
       <td>
         <div class="item-id">${escHtml(item.id)}</div>
