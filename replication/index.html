@@ -386,7 +386,6 @@
     <thead>
       <tr>
         <th data-col="jaName" class="sort-asc">アイテム名 <span class="sort-icon"></span></th>
-        <th data-col="id">ID <span class="sort-icon"></span></th>
         <th data-col="type">種別 <span class="sort-icon"></span></th>
         <th data-col="earth"    class="col-earth">🌍 Earth <span class="sort-icon"></span></th>
         <th data-col="organic"  class="col-organic">🌿 Organic <span class="sort-icon"></span></th>
@@ -502,9 +501,6 @@ function render() {
       <td>
         <div class="item-name-ja">${escHtml(item.jaName || item.name)}</div>
         ${(item.jaName && item.jaName !== item.name) ? `<div class="item-name-en">${escHtml(item.name)}</div>` : ''}
-      </td>
-      <td>
-        <div class="item-id">${escHtml(item.id)}</div>
       </td>
       <td>
         <span class="badge badge-${item.type}">${item.type === 'item' ? 'Item' : 'Tag'}</span>
