@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Replication MOD - アイテム価値一覧</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --surface: #16213e;
+      --surface2: #0f3460;
+      --accent: #e94560;
+      --accent2: #533483;
+      --text: #eaeaea;
+      --text-muted: #888;
+      --earth: #8B6914;
+      --organic: #4a7c59;
+      --precious: #c9a84c;
+      --nether: #c0392b;
+      --ender: #8e44ad;
+      --living: #27ae60;
+      --metallic: #7f8c8d;
+      --quantum: #2980b9;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--surface2) 0%, var(--accent2) 100%);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 2px solid var(--accent);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(233,69,96,0.5);
+    }
+
+    header p {
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .controls {
+      padding: 1.5rem 2rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+      font-size: 0.9rem;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .chip {
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .chip:hover { border-color: rgba(255,255,255,0.3); }
+    .chip.active { color: #fff; border-color: transparent; }
+
+    .chip[data-type="all"].active { background: var(--accent2); }
+    .chip[data-type="item"].active { background: #2563eb; }
+    .chip[data-type="tag"].active { background: #059669; }
+
+    .matter-chip.active[data-matter="earth"]    { background: var(--earth); }
+    .matter-chip.active[data-matter="organic"]  { background: var(--organic); }
+    .matter-chip.active[data-matter="precious"] { background: var(--precious); color: #222; }
+    .matter-chip.active[data-matter="nether"]   { background: var(--nether); }
+    .matter-chip.active[data-matter="ender"]    { background: var(--ender); }
+    .matter-chip.active[data-matter="living"]   { background: var(--living); }
+    .matter-chip.active[data-matter="metallic"] { background: var(--metallic); }
+    .matter-chip.active[data-matter="quantum"]  { background: var(--quantum); }
+
+    .stats-bar {
+      padding: 0.6rem 2rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .stats-bar span b { color: var(--text); }
+
+    .table-wrap {
+      overflow-x: auto;
+      padding: 1rem 2rem 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead tr {
+      background: var(--surface2);
+    }
+
+    th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.7);
+      border-bottom: 2px solid var(--border);
+      cursor: pointer;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    th:hover { color: var(--text); }
+
+    th .sort-icon {
+      display: inline-block;
+      margin-left: 0.3rem;
+      opacity: 0.3;
+      font-size: 0.7rem;
+    }
+
+    th.sort-asc .sort-icon::after { content: ' ▲'; opacity: 1; }
+    th.sort-desc .sort-icon::after { content: ' ▼'; opacity: 1; }
+    th.sort-asc .sort-icon, th.sort-desc .sort-icon { opacity: 1; }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: rgba(255,255,255,0.04); }
+
+    td {
+      padding: 0.65rem 1rem;
+      vertical-align: middle;
+    }
+
+    .item-name {
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .item-id {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-item { background: rgba(37,99,235,0.3); color: #93c5fd; }
+    .badge-tag  { background: rgba(5,150,105,0.3); color: #6ee7b7; }
+
+    .matter-cells {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .matter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .matter-pill.earth    { background: rgba(139,105,20,0.25); color: #d4a62a; border: 1px solid rgba(139,105,20,0.4); }
+    .matter-pill.organic  { background: rgba(74,124,89,0.25); color: #6abf7b; border: 1px solid rgba(74,124,89,0.4); }
+    .matter-pill.precious { background: rgba(201,168,76,0.25); color: #f0c040; border: 1px solid rgba(201,168,76,0.4); }
+    .matter-pill.nether   { background: rgba(192,57,43,0.25); color: #e74c3c; border: 1px solid rgba(192,57,43,0.4); }
+    .matter-pill.ender    { background: rgba(142,68,173,0.25); color: #af7ac5; border: 1px solid rgba(142,68,173,0.4); }
+    .matter-pill.living   { background: rgba(39,174,96,0.25); color: #58d68d; border: 1px solid rgba(39,174,96,0.4); }
+    .matter-pill.metallic { background: rgba(127,140,141,0.25); color: #aab7b8; border: 1px solid rgba(127,140,141,0.4); }
+    .matter-pill.quantum  { background: rgba(41,128,185,0.25); color: #7fb3d3; border: 1px solid rgba(41,128,185,0.4); }
+
+    .matter-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .matter-dot.earth    { background: var(--earth); }
+    .matter-dot.organic  { background: var(--organic); }
+    .matter-dot.precious { background: var(--precious); }
+    .matter-dot.nether   { background: var(--nether); }
+    .matter-dot.ender    { background: var(--ender); }
+    .matter-dot.living   { background: var(--living); }
+    .matter-dot.metallic { background: var(--metallic); }
+    .matter-dot.quantum  { background: var(--quantum); }
+
+    .total-cell {
+      font-weight: 700;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .controls { padding: 1rem; }
+      .table-wrap { padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚗️ Replication MOD</h1>
+  <p>Minecraft アイテム マター価値一覧 — <a href="https://github.com/Buuz135/Replication" target="_blank" style="color:#f0c040">Buuz135/Replication</a></p>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="アイテム名またはIDで検索..." autocomplete="off">
+  </div>
+
+  <div class="filter-group">
+    <span class="filter-label">種別:</span>
+    <button class="chip active" data-type="all">すべて</button>
+    <button class="chip" data-type="item">Item</button>
+    <button class="chip" data-type="tag">Tag</button>
+  </div>
+
+  <div class="filter-group">
+    <span class="filter-label">マター:</span>
+    <button class="chip matter-chip" data-matter="earth">🌍 Earth</button>
+    <button class="chip matter-chip" data-matter="organic">🌿 Organic</button>
+    <button class="chip matter-chip" data-matter="precious">💎 Precious</button>
+    <button class="chip matter-chip" data-matter="nether">🔥 Nether</button>
+    <button class="chip matter-chip" data-matter="ender">🌀 Ender</button>
+    <button class="chip matter-chip" data-matter="living">🧬 Living</button>
+    <button class="chip matter-chip" data-matter="metallic">⚙️ Metallic</button>
+    <button class="chip matter-chip" data-matter="quantum">⚛️ Quantum</button>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot" style="background:var(--earth)"></span> Earth — 土/石系</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--organic)"></span> Organic — 植物/食料系</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--precious)"></span> Precious — 宝石/希少系</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--nether)"></span> Nether — ネザー系</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--ender)"></span> Ender — エンド系</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--living)"></span> Living — 生物系</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--metallic)"></span> Metallic — 金属系</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--quantum)"></span> Quantum — 量子系</span>
+</div>
+
+<div class="stats-bar">
+  <span id="count-display">読み込み中...</span>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th data-col="name" class="sort-asc">アイテム名 <span class="sort-icon"></span></th>
+        <th data-col="id">ID <span class="sort-icon"></span></th>
+        <th data-col="type">種別 <span class="sort-icon"></span></th>
+        <th>マター値</th>
+        <th data-col="total">合計 <span class="sort-icon"></span></th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  <div class="empty-state" id="empty-state" style="display:none">
+    一致するアイテムが見つかりませんでした
+  </div>
+</div>
+
+<footer>
+  Data source: <a href="https://github.com/Buuz135/Replication" target="_blank">Buuz135/Replication</a> (branch: 1.21) &nbsp;|&nbsp;
+  This page is not affiliated with the mod author.
+</footer>
+
+<script>
+const MATTER_EMOJI = {
+  earth: '🌍', organic: '🌿', precious: '💎',
+  nether: '🔥', ender: '🌀', living: '🧬',
+  metallic: '⚙️', quantum: '⚛️'
+};
+
+let allItems = [];
+let sortCol = 'name';
+let sortDir = 1; // 1 = asc, -1 = desc
+let filterType = 'all';
+let filterMatters = new Set();
+let searchText = '';
+
+async function loadData() {
+  const resp = await fetch('data.json');
+  allItems = await resp.json();
+  render();
+}
+
+function getFilteredItems() {
+  return allItems.filter(item => {
+    // Search
+    if (searchText) {
+      const s = searchText.toLowerCase();
+      if (!item.name.toLowerCase().includes(s) && !item.id.toLowerCase().includes(s)) return false;
+    }
+    // Type filter
+    if (filterType !== 'all' && item.type !== filterType) return false;
+    // Matter filter
+    if (filterMatters.size > 0) {
+      const hasMatter = [...filterMatters].some(m => item.matter[m] !== undefined);
+      if (!hasMatter) return false;
+    }
+    return true;
+  });
+}
+
+function getSortedItems(items) {
+  return [...items].sort((a, b) => {
+    let av, bv;
+    if (sortCol === 'total') {
+      av = a.total; bv = b.total;
+    } else if (sortCol === 'type') {
+      av = a.type; bv = b.type;
+    } else if (sortCol === 'id') {
+      av = a.id; bv = b.id;
+    } else {
+      av = a.name; bv = b.name;
+    }
+    if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+    return sortDir * (av - bv);
+  });
+}
+
+function renderMatter(matter) {
+  return Object.entries(matter).map(([type, amount]) => `
+    <span class="matter-pill ${type}">
+      <span class="matter-dot ${type}"></span>
+      ${MATTER_EMOJI[type] || ''} ${type}: ${amount}
+    </span>
+  `).join('');
+}
+
+function render() {
+  const filtered = getFilteredItems();
+  const sorted = getSortedItems(filtered);
+
+  const tbody = document.getElementById('table-body');
+  const empty = document.getElementById('empty-state');
+  const countEl = document.getElementById('count-display');
+
+  const total = allItems.length;
+  countEl.innerHTML = `表示中: <b>${sorted.length}</b> / <b>${total}</b> 件`;
+
+  if (sorted.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = '';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = sorted.map(item => `
+    <tr>
+      <td>
+        <div class="item-name">${escHtml(item.name)}</div>
+      </td>
+      <td>
+        <div class="item-id">${escHtml(item.id)}</div>
+      </td>
+      <td>
+        <span class="badge badge-${item.type}">${item.type === 'item' ? 'Item' : 'Tag'}</span>
+      </td>
+      <td>
+        <div class="matter-cells">${renderMatter(item.matter)}</div>
+      </td>
+      <td class="total-cell">${item.total}</td>
+    </tr>
+  `).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Search
+document.getElementById('search').addEventListener('input', e => {
+  searchText = e.target.value.trim();
+  render();
+});
+
+// Type filter chips
+document.querySelectorAll('.chip[data-type]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip[data-type]').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    filterType = chip.dataset.type;
+    render();
+  });
+});
+
+// Matter filter chips (toggle)
+document.querySelectorAll('.matter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const m = chip.dataset.matter;
+    if (filterMatters.has(m)) {
+      filterMatters.delete(m);
+      chip.classList.remove('active');
+    } else {
+      filterMatters.add(m);
+      chip.classList.add('active');
+    }
+    render();
+  });
+});
+
+// Sort
+document.querySelectorAll('th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) {
+      sortDir *= -1;
+    } else {
+      sortCol = col;
+      sortDir = 1;
+    }
+    document.querySelectorAll('th').forEach(t => t.classList.remove('sort-asc','sort-desc'));
+    th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    render();
+  });
+});
+
+loadData();
+</script>
+</body>
+</html>
