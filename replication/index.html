@@ -164,10 +164,10 @@
     }
 
     th {
-      padding: 0.75rem 1rem;
+      padding: 0.75rem 0.6rem;
       text-align: left;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: rgba(255,255,255,0.7);
@@ -190,6 +190,34 @@
     th.sort-desc .sort-icon::after { content: ' ▼'; opacity: 1; }
     th.sort-asc .sort-icon, th.sort-desc .sort-icon { opacity: 1; }
 
+    /* Matter column headers */
+    th.col-earth    { border-top: 3px solid var(--earth); }
+    th.col-organic  { border-top: 3px solid var(--organic); }
+    th.col-precious { border-top: 3px solid var(--precious); }
+    th.col-nether   { border-top: 3px solid var(--nether); }
+    th.col-ender    { border-top: 3px solid var(--ender); }
+    th.col-living   { border-top: 3px solid var(--living); }
+    th.col-metallic { border-top: 3px solid var(--metallic); }
+    th.col-quantum  { border-top: 3px solid var(--quantum); }
+
+    th.col-earth    { color: #d4a62a; }
+    th.col-organic  { color: #6abf7b; }
+    th.col-precious { color: #f0c040; }
+    th.col-nether   { color: #e74c3c; }
+    th.col-ender    { color: #af7ac5; }
+    th.col-living   { color: #58d68d; }
+    th.col-metallic { color: #aab7b8; }
+    th.col-quantum  { color: #7fb3d3; }
+
+    th.col-earth:hover    { color: #e8c040; }
+    th.col-organic:hover  { color: #8ddf9d; }
+    th.col-precious:hover { color: #ffe060; }
+    th.col-nether:hover   { color: #ff6b5b; }
+    th.col-ender:hover    { color: #cc99e5; }
+    th.col-living:hover   { color: #7ef0a5; }
+    th.col-metallic:hover { color: #ccd8d8; }
+    th.col-quantum:hover  { color: #9fd3f3; }
+
     tbody tr {
       border-bottom: 1px solid var(--border);
       transition: background 0.15s;
@@ -198,17 +226,24 @@
     tbody tr:hover { background: rgba(255,255,255,0.04); }
 
     td {
-      padding: 0.65rem 1rem;
+      padding: 0.6rem 0.6rem;
       vertical-align: middle;
     }
 
-    .item-name {
-      font-weight: 500;
+    .item-name-ja {
+      font-weight: 600;
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+
+    .item-name-en {
+      font-size: 0.72rem;
+      color: var(--text-muted);
       white-space: nowrap;
     }
 
     .item-id {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       font-family: monospace;
     }
@@ -225,51 +260,30 @@
     .badge-item { background: rgba(37,99,235,0.3); color: #93c5fd; }
     .badge-tag  { background: rgba(5,150,105,0.3); color: #6ee7b7; }
 
-    .matter-cells {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-    }
-
-    .matter-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.78rem;
+    /* Matter value cells */
+    .matter-val {
+      text-align: right;
       font-weight: 600;
-      white-space: nowrap;
+      font-size: 0.85rem;
+      min-width: 3rem;
     }
 
-    .matter-pill.earth    { background: rgba(139,105,20,0.25); color: #d4a62a; border: 1px solid rgba(139,105,20,0.4); }
-    .matter-pill.organic  { background: rgba(74,124,89,0.25); color: #6abf7b; border: 1px solid rgba(74,124,89,0.4); }
-    .matter-pill.precious { background: rgba(201,168,76,0.25); color: #f0c040; border: 1px solid rgba(201,168,76,0.4); }
-    .matter-pill.nether   { background: rgba(192,57,43,0.25); color: #e74c3c; border: 1px solid rgba(192,57,43,0.4); }
-    .matter-pill.ender    { background: rgba(142,68,173,0.25); color: #af7ac5; border: 1px solid rgba(142,68,173,0.4); }
-    .matter-pill.living   { background: rgba(39,174,96,0.25); color: #58d68d; border: 1px solid rgba(39,174,96,0.4); }
-    .matter-pill.metallic { background: rgba(127,140,141,0.25); color: #aab7b8; border: 1px solid rgba(127,140,141,0.4); }
-    .matter-pill.quantum  { background: rgba(41,128,185,0.25); color: #7fb3d3; border: 1px solid rgba(41,128,185,0.4); }
+    .matter-val.earth    { color: #d4a62a; }
+    .matter-val.organic  { color: #6abf7b; }
+    .matter-val.precious { color: #f0c040; }
+    .matter-val.nether   { color: #e74c3c; }
+    .matter-val.ender    { color: #af7ac5; }
+    .matter-val.living   { color: #58d68d; }
+    .matter-val.metallic { color: #aab7b8; }
+    .matter-val.quantum  { color: #7fb3d3; }
 
-    .matter-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .matter-dot.earth    { background: var(--earth); }
-    .matter-dot.organic  { background: var(--organic); }
-    .matter-dot.precious { background: var(--precious); }
-    .matter-dot.nether   { background: var(--nether); }
-    .matter-dot.ender    { background: var(--ender); }
-    .matter-dot.living   { background: var(--living); }
-    .matter-dot.metallic { background: var(--metallic); }
-    .matter-dot.quantum  { background: var(--quantum); }
+    .matter-val.zero { color: var(--text-muted); opacity: 0.3; font-weight: 400; }
 
     .total-cell {
       font-weight: 700;
       color: var(--accent);
       white-space: nowrap;
+      text-align: right;
     }
 
     .empty-state {
@@ -371,10 +385,17 @@
   <table>
     <thead>
       <tr>
-        <th data-col="name" class="sort-asc">アイテム名 <span class="sort-icon"></span></th>
+        <th data-col="jaName" class="sort-asc">アイテム名 <span class="sort-icon"></span></th>
         <th data-col="id">ID <span class="sort-icon"></span></th>
         <th data-col="type">種別 <span class="sort-icon"></span></th>
-        <th>マター値</th>
+        <th data-col="earth"    class="col-earth">🌍 Earth <span class="sort-icon"></span></th>
+        <th data-col="organic"  class="col-organic">🌿 Organic <span class="sort-icon"></span></th>
+        <th data-col="precious" class="col-precious">💎 Precious <span class="sort-icon"></span></th>
+        <th data-col="nether"   class="col-nether">🔥 Nether <span class="sort-icon"></span></th>
+        <th data-col="ender"    class="col-ender">🌀 Ender <span class="sort-icon"></span></th>
+        <th data-col="living"   class="col-living">🧬 Living <span class="sort-icon"></span></th>
+        <th data-col="metallic" class="col-metallic">⚙️ Metallic <span class="sort-icon"></span></th>
+        <th data-col="quantum"  class="col-quantum">⚛️ Quantum <span class="sort-icon"></span></th>
         <th data-col="total">合計 <span class="sort-icon"></span></th>
       </tr>
     </thead>
@@ -391,15 +412,11 @@
 </footer>
 
 <script>
-const MATTER_EMOJI = {
-  earth: '🌍', organic: '🌿', precious: '💎',
-  nether: '🔥', ender: '🌀', living: '🧬',
-  metallic: '⚙️', quantum: '⚛️'
-};
+const MATTER_TYPES = ['earth','organic','precious','nether','ender','living','metallic','quantum'];
 
 let allItems = [];
-let sortCol = 'name';
-let sortDir = 1; // 1 = asc, -1 = desc
+let sortCol = 'jaName';
+let sortDir = 1;
 let filterType = 'all';
 let filterMatters = new Set();
 let searchText = '';
@@ -412,14 +429,13 @@ async function loadData() {
 
 function getFilteredItems() {
   return allItems.filter(item => {
-    // Search
     if (searchText) {
       const s = searchText.toLowerCase();
-      if (!item.name.toLowerCase().includes(s) && !item.id.toLowerCase().includes(s)) return false;
+      if (!item.jaName.toLowerCase().includes(s) &&
+          !item.name.toLowerCase().includes(s) &&
+          !item.id.toLowerCase().includes(s)) return false;
     }
-    // Type filter
     if (filterType !== 'all' && item.type !== filterType) return false;
-    // Matter filter
     if (filterMatters.size > 0) {
       const hasMatter = [...filterMatters].some(m => item.matter[m] !== undefined);
       if (!hasMatter) return false;
@@ -437,21 +453,22 @@ function getSortedItems(items) {
       av = a.type; bv = b.type;
     } else if (sortCol === 'id') {
       av = a.id; bv = b.id;
+    } else if (sortCol === 'jaName') {
+      av = a.jaName; bv = b.jaName;
+    } else if (MATTER_TYPES.includes(sortCol)) {
+      av = a.matter[sortCol] || 0;
+      bv = b.matter[sortCol] || 0;
     } else {
-      av = a.name; bv = b.name;
+      av = a.jaName; bv = b.jaName;
     }
-    if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+    if (typeof av === 'string') return sortDir * av.localeCompare(bv, 'ja');
     return sortDir * (av - bv);
   });
 }
 
-function renderMatter(matter) {
-  return Object.entries(matter).map(([type, amount]) => `
-    <span class="matter-pill ${type}">
-      <span class="matter-dot ${type}"></span>
-      ${MATTER_EMOJI[type] || ''} ${type}: ${amount}
-    </span>
-  `).join('');
+function fmtNum(n) {
+  if (n === undefined || n === 0) return '';
+  return Number.isInteger(n) ? n : n;
 }
 
 function render() {
@@ -472,10 +489,18 @@ function render() {
   }
   empty.style.display = 'none';
 
-  tbody.innerHTML = sorted.map(item => `
+  tbody.innerHTML = sorted.map(item => {
+    const matterCells = MATTER_TYPES.map(m => {
+      const val = item.matter[m];
+      if (!val) return `<td class="matter-val ${m} zero">—</td>`;
+      return `<td class="matter-val ${m}">${val}</td>`;
+    }).join('');
+
+    return `
     <tr>
       <td>
-        <div class="item-name">${escHtml(item.name)}</div>
+        <div class="item-name-ja">${escHtml(item.jaName)}</div>
+        ${item.jaName !== item.name ? `<div class="item-name-en">${escHtml(item.name)}</div>` : ''}
       </td>
       <td>
         <div class="item-id">${escHtml(item.id)}</div>
@@ -483,25 +508,21 @@ function render() {
       <td>
         <span class="badge badge-${item.type}">${item.type === 'item' ? 'Item' : 'Tag'}</span>
       </td>
-      <td>
-        <div class="matter-cells">${renderMatter(item.matter)}</div>
-      </td>
+      ${matterCells}
       <td class="total-cell">${item.total}</td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
 }
 
 function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-// Search
 document.getElementById('search').addEventListener('input', e => {
   searchText = e.target.value.trim();
   render();
 });
 
-// Type filter chips
 document.querySelectorAll('.chip[data-type]').forEach(chip => {
   chip.addEventListener('click', () => {
     document.querySelectorAll('.chip[data-type]').forEach(c => c.classList.remove('active'));
@@ -511,7 +532,6 @@ document.querySelectorAll('.chip[data-type]').forEach(chip => {
   });
 });
 
-// Matter filter chips (toggle)
 document.querySelectorAll('.matter-chip').forEach(chip => {
   chip.addEventListener('click', () => {
     const m = chip.dataset.matter;
@@ -526,7 +546,6 @@ document.querySelectorAll('.matter-chip').forEach(chip => {
   });
 });
 
-// Sort
 document.querySelectorAll('th[data-col]').forEach(th => {
   th.addEventListener('click', () => {
     const col = th.dataset.col;
@@ -534,7 +553,8 @@ document.querySelectorAll('th[data-col]').forEach(th => {
       sortDir *= -1;
     } else {
       sortCol = col;
-      sortDir = 1;
+      // For matter columns, default sort descending (highest first)
+      sortDir = MATTER_TYPES.includes(col) || col === 'total' ? -1 : 1;
     }
     document.querySelectorAll('th').forEach(t => t.classList.remove('sort-asc','sort-desc'));
     th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
