@@ -5,315 +5,337 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ParCool MOD ガイド（日本語）</title>
   <style>
-    :root {
-      --bg: #1a1a2e;
-      --surface: #16213e;
-      --card: #0f3460;
-      --accent: #e94560;
-      --accent2: #f5a623;
-      --text: #eaeaea;
-      --muted: #a0a0b0;
-      --border: #2a2a4a;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
       font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
-      line-height: 1.7;
-      padding: 0 0 60px;
+      background: #f5f5f5;
+      color: #222;
+      line-height: 1.75;
     }
 
-    /* Header */
-    header {
-      background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 60%, #e94560 100%);
-      padding: 48px 24px 36px;
-      text-align: center;
-      border-bottom: 3px solid var(--accent);
-    }
-    header h1 {
-      font-size: 2.8rem;
-      letter-spacing: 0.05em;
-      color: #fff;
-      text-shadow: 0 2px 12px rgba(233,69,96,0.5);
-    }
-    header p {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    /* Nav */
-    nav {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      position: sticky;
+    /* ========== サイドバー ========== */
+    #sidebar {
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #1e1e2e;
+      color: #ccc;
+      overflow-y: auto;
+      padding: 20px 0;
       z-index: 100;
     }
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.82rem;
-      padding: 4px 10px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      transition: all 0.2s;
-    }
-    nav a:hover {
-      color: #fff;
-      border-color: var(--accent);
-      background: rgba(233,69,96,0.15);
-    }
 
-    /* Main */
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 20px 0;
-    }
-
-    /* Section */
-    section {
-      margin-bottom: 48px;
-    }
-    section h2 {
-      font-size: 1.5rem;
-      color: var(--accent2);
-      border-left: 4px solid var(--accent2);
-      padding-left: 12px;
-      margin-bottom: 20px;
-    }
-
-    /* Card */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 16px;
-      transition: border-color 0.2s;
-    }
-    .card:hover { border-color: var(--accent); }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .card-icon { font-size: 1.5rem; }
-    .card h3 {
-      font-size: 1.15rem;
-      color: #fff;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin-bottom: 10px;
-    }
-    .card p:last-child { margin-bottom: 0; }
-
-    /* Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-      margin-top: 8px;
-    }
-    th {
-      background: var(--card);
-      color: var(--accent2);
-      text-align: left;
-      padding: 7px 12px;
-      font-weight: 600;
-    }
-    td {
-      padding: 7px 12px;
-      border-top: 1px solid var(--border);
-      color: var(--text);
-    }
-    tr:hover td { background: rgba(255,255,255,0.03); }
-
-    /* Key badge */
-    .key {
-      display: inline-block;
-      background: var(--card);
-      border: 1px solid #4a6fa5;
-      border-radius: 5px;
-      padding: 1px 7px;
-      font-size: 0.82rem;
-      font-family: monospace;
-      color: #a8d0ff;
-      white-space: nowrap;
-    }
-
-    /* Tag */
-    .tag {
-      display: inline-block;
-      background: rgba(233,69,96,0.15);
-      border: 1px solid var(--accent);
-      border-radius: 20px;
-      padding: 1px 8px;
+    #sidebar .sidebar-title {
       font-size: 0.75rem;
-      color: var(--accent);
-      margin-left: 6px;
-      vertical-align: middle;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #888;
+      text-transform: uppercase;
+      padding: 0 16px 10px;
+      border-bottom: 1px solid #333;
+      margin-bottom: 10px;
     }
-    .tag.auto { background: rgba(245,166,35,0.15); border-color: var(--accent2); color: var(--accent2); }
-    .tag.combo { background: rgba(100,200,100,0.15); border-color: #6dc86d; color: #6dc86d; }
 
-    /* Sub action */
-    .sub-action {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--border);
+    #sidebar a {
+      display: block;
+      padding: 5px 16px;
+      font-size: 0.85rem;
+      color: #bbb;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .sub-action h4 {
-      font-size: 1rem;
-      color: var(--accent2);
+
+    #sidebar a:hover {
+      color: #fff;
+      background: #2a2a3e;
+      border-left-color: #7c8cf8;
+    }
+
+    #sidebar a.active {
+      color: #fff;
+      background: #2a2a3e;
+      border-left-color: #7c8cf8;
+    }
+
+    #sidebar .sidebar-group {
+      margin-top: 14px;
+      margin-bottom: 4px;
+      padding: 0 16px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ========== メインコンテンツ ========== */
+    #main {
+      margin-left: 220px;
+      padding: 40px 48px 80px;
+      max-width: 860px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1a1a2e;
       margin-bottom: 6px;
     }
 
-    /* Stamina bar visual */
-    .stamina-bar {
-      display: flex;
-      gap: 4px;
-      margin: 6px 0;
+    .subtitle {
+      color: #666;
+      font-size: 0.92rem;
+      margin-bottom: 40px;
     }
-    .stamina-bar span {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border-radius: 3px;
-      background: #27ae60;
-    }
-    .stamina-bar span.empty { background: var(--border); }
 
-    /* Recipe */
-    .recipe {
-      background: var(--card);
+    /* ========== セクション ========== */
+    .section {
+      margin-bottom: 52px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* ========== アクションブロック ========== */
+    .action {
+      background: #fff;
+      border: 1px solid #e0e0e0;
       border-radius: 8px;
-      padding: 10px 16px;
-      font-size: 0.88rem;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+
+    .action-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-name .icon { font-size: 1.1rem; }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #eef0ff;
+      color: #5060c0;
+    }
+    .tag.auto { background: #fff5e0; color: #b07000; }
+    .tag.combo { background: #e8f8e8; color: #2a802a; }
+
+    .desc {
+      color: #444;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    /* ========== 操作テーブル ========== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+
+    th {
+      background: #f0f0f0;
+      color: #555;
+      font-weight: 600;
+      text-align: left;
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+    }
+
+    td {
+      padding: 6px 12px;
+      border: 1px solid #e8e8e8;
+      color: #333;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #fafafa; }
+
+    /* ========== キーバッジ ========== */
+    .key {
+      display: inline-block;
+      background: #f0f0f0;
+      border: 1px solid #bbb;
+      border-bottom: 2px solid #999;
+      border-radius: 4px;
+      padding: 0 6px;
+      font-size: 0.82rem;
+      font-family: monospace;
+      color: #333;
+      white-space: nowrap;
+    }
+
+    /* ========== サブアクション ========== */
+    .sub-action {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed #e0e0e0;
+    }
+
+    .sub-action-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    /* ========== ノート ========== */
+    .note {
+      background: #fffbea;
+      border-left: 3px solid #f0c040;
+      border-radius: 0 4px 4px 0;
+      padding: 7px 12px;
+      font-size: 0.84rem;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    /* ========== レシピ ========== */
+    .recipe {
+      font-size: 0.87rem;
       margin-top: 8px;
     }
     .recipe li {
       list-style: none;
       padding: 3px 0;
-      color: var(--muted);
+      color: #444;
     }
     .recipe li::before { content: "🧪 "; }
 
-    /* Steps */
+    /* ========== ステップ ========== */
     .steps { counter-reset: step; margin-top: 8px; }
     .steps li {
       list-style: none;
       counter-increment: step;
-      padding: 4px 0 4px 32px;
+      padding: 4px 0 4px 30px;
       position: relative;
-      color: var(--muted);
-      font-size: 0.9rem;
+      color: #444;
+      font-size: 0.88rem;
     }
     .steps li::before {
       content: counter(step);
       position: absolute;
       left: 0;
-      background: var(--accent);
+      top: 5px;
+      background: #7c8cf8;
       color: #fff;
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      top: 5px;
     }
 
-    /* Note */
-    .note {
-      background: rgba(245,166,35,0.08);
-      border-left: 3px solid var(--accent2);
-      border-radius: 0 6px 6px 0;
-      padding: 8px 12px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-    /* Highlight */
-    .highlight {
-      color: var(--accent2);
-      font-weight: bold;
-    }
-
-    /* Footer */
+    /* ========== フッター ========== */
     footer {
-      text-align: center;
-      color: var(--muted);
+      color: #888;
       font-size: 0.8rem;
-      margin-top: 48px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      margin-top: 40px;
+    }
+    footer a { color: #7c8cf8; }
+
+    /* ========== レスポンシブ ========== */
+    @media (max-width: 700px) {
+      #sidebar { display: none; }
+      #main { margin-left: 0; padding: 24px 16px 60px; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>⚡ ParCool MOD ガイド</h1>
-  <p>Minecraft Forge / NeoForge 対応 パルクールMOD 日本語まとめ</p>
-</header>
+<!-- サイドバー -->
+<nav id="sidebar">
+  <div class="sidebar-title">ParCool ガイド</div>
 
-<nav>
-  <a href="#system">基本システム</a>
-  <a href="#run">移動系</a>
-  <a href="#wall">壁・縦移動</a>
-  <a href="#jump">ジャンプ系</a>
-  <a href="#land">着地系</a>
-  <a href="#misc">その他アクション</a>
-  <a href="#items">アイテム・設備</a>
+  <div class="sidebar-group">基本</div>
+  <a href="#stamina">スタミナ</a>
+
+  <div class="sidebar-group">移動</div>
+  <a href="#fast-run">ファストラン</a>
+  <a href="#vault">ヴォルト</a>
+  <a href="#crawl">クロール / スライド</a>
+
+  <div class="sidebar-group">壁・縦移動</div>
+  <a href="#cling">崖つかまり</a>
+  <a href="#catleap">キャットリープ</a>
+  <a href="#v-wall-run">ウォールラン（垂直）</a>
+  <a href="#h-wall-run">ウォールラン（水平）</a>
+  <a href="#wall-jump">ウォールジャンプ</a>
+  <a href="#wall-slide">ウォールスライド</a>
+  <a href="#poles">ポール登り</a>
+  <a href="#hang">ぶら下がり</a>
+
+  <div class="sidebar-group">ジャンプ</div>
+  <a href="#charge-jump">チャージジャンプ</a>
+  <a href="#flipping">フリッピング</a>
+  <a href="#dive">ダイブ / スカイダイブ</a>
+
+  <div class="sidebar-group">着地</div>
+  <a href="#breakfall">ブレイクフォール</a>
+
+  <div class="sidebar-group">その他</div>
+  <a href="#dodge">ドッジ</a>
+  <a href="#quick-turn">クイックターン</a>
+  <a href="#hide">ブロックに隠れる</a>
+
+  <div class="sidebar-group">アイテム・設備</div>
+  <a href="#energy-drink">エナジードリンク</a>
+  <a href="#zipline">ジップライン</a>
 </nav>
 
-<main>
+<!-- メインコンテンツ -->
+<div id="main">
+  <h1>⚡ ParCool MOD ガイド</h1>
+  <p class="subtitle">Minecraft Forge / NeoForge 対応 パルクールMOD 日本語まとめ</p>
 
   <!-- 基本システム -->
-  <section id="system">
-    <h2>🔋 基本システム：スタミナ</h2>
-    <div class="card">
-      <p>ホットバーの満腹度の<strong>上</strong>に表示される「短期疲労」パラメーター。ほぼ全てのParCoolアクションで消費し、休憩すると比較的早く回復する。</p>
-      <div class="stamina-bar">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span class="empty"></span><span class="empty"></span><span class="empty"></span>
-      </div>
+  <div class="section">
+    <div class="section-title">🔋 基本システム</div>
+
+    <div class="action" id="stamina">
+      <div class="action-name"><span class="icon">❤️</span>スタミナ（Stamina）</div>
+      <p class="desc">ホットバーの満腹度の<strong>上</strong>に表示される短期疲労パラメーター。ほぼ全てのParCoolアクションで消費し、休憩すると比較的早く回復する。</p>
       <table>
         <tr><th>状態</th><th>効果</th></tr>
-        <tr><td>スタミナ切れ</td><td>ほぼ全ParCoolアクション不可・ダッシュ不可</td></tr>
+        <tr><td>スタミナ切れ</td><td>ほぼ全ParCoolアクション不可、ダッシュ不可</td></tr>
         <tr><td>回復中</td><td>じっとしていると比較的早く回復</td></tr>
       </table>
-      <div class="note">💡 エナジードリンクを使うとスタミナ消費なしでアクションできる！</div>
+      <div class="note">💡 エナジードリンクを使うとスタミナ消費なしでアクションできる</div>
     </div>
-  </section>
+  </div>
 
   <!-- 移動系 -->
-  <section id="run">
-    <h2>🏃 移動系アクション</h2>
+  <div class="section">
+    <div class="section-title">🏃 移動系アクション</div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">⚡</span>
-        <h3>ファストラン（Fast Run）</h3>
-      </div>
-      <p>通常のダッシュより速く走る、ParCoolの<strong>基本アクション</strong>。ヴォルト・ウォールラン・ダイブなど多くのアクションの起点になる。</p>
+    <div class="action" id="fast-run">
+      <div class="action-name"><span class="icon">⚡</span>ファストラン（Fast Run）</div>
+      <p class="desc">通常より速く走る。ヴォルト・ウォールラン・ダイブなど多くのアクションの起点になる基本アクション。</p>
       <table>
         <tr><th>モード</th><th>操作</th></tr>
         <tr><td>デフォルト</td><td>ダッシュ中に <span class="key">Ctrl</span> 長押し</td></tr>
@@ -321,92 +343,71 @@
         <tr><td>オート</td><td>ダッシュすると自動発動</td></tr>
       </table>
       <div class="sub-action">
-        <h4>🏊 ファストスイム（Fast Swim）</h4>
-        <p>同じ操作で水中でも高速移動できる。</p>
+        <div class="sub-action-name">🏊 ファストスイム（Fast Swim）</div>
+        <p class="desc">同じ操作で水中でも高速移動できる。</p>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🧱</span>
-        <h3>ヴォルト（Vault）</h3>
-      </div>
-      <p>障害物（フェンス含む）を素早く乗り越えるパルクール技。ファストラン中にブロックへ当たると<strong>自動発動</strong>。</p>
+    <div class="action" id="vault">
+      <div class="action-name"><span class="icon">🧱</span>ヴォルト（Vault）</div>
+      <p class="desc">障害物（フェンス含む）を素早く乗り越える。ファストラン中にブロックへ当たると<strong>自動発動</strong>。</p>
       <div class="sub-action">
-        <h4>✈️ 空中ヴォルト（In-air Vault）</h4>
-        <p>ジャンプ頂点付近でブロックに当たると <span class="highlight">2ブロックの高さ</span> も乗り越えられる。</p>
+        <div class="sub-action-name">✈️ 空中ヴォルト（In-air Vault）</div>
+        <p class="desc">ジャンプ頂点付近でブロックに当たると <strong>2ブロックの高さ</strong>も乗り越えられる。</p>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🐛</span>
-        <h3>クロール（Crawl）</h3>
-      </div>
-      <p>狭い通路を這って進む。専用アニメーションあり。</p>
+    <div class="action" id="crawl">
+      <div class="action-name"><span class="icon">🐛</span>クロール（Crawl）</div>
+      <p class="desc">狭い通路を這って進む。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td><span class="key">C</span> キー</td></tr>
       </table>
       <div class="sub-action">
-        <h4>💨 スライド（Slide）</h4>
-        <p>ファストラン中にクロールすると、速度を保ったまま狭い場所を高速通過（時間制限あり）。</p>
+        <div class="sub-action-name">💨 スライド（Slide）</div>
+        <p class="desc">ファストラン中にクロールすると、速度を保ったまま狭い場所を高速通過（時間制限あり）。</p>
       </div>
     </div>
-
-  </section>
+  </div>
 
   <!-- 壁・縦移動 -->
-  <section id="wall">
-    <h2>🧗 壁・縦移動系アクション</h2>
+  <div class="section">
+    <div class="section-title">🧗 壁・縦移動系アクション</div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🤲</span>
-        <h3>崖つかまり（Cling to Cliff）</h3>
-        <span class="tag combo">コンボ推奨</span>
-      </div>
-      <p>ブロックの縁にぶら下がって静止。ゆっくり移動でき、<span class="key">ジャンプ</span> で登れる。他アクションとの組み合わせで大活躍。</p>
+    <div class="action" id="cling">
+      <div class="action-name"><span class="icon">🤲</span>崖つかまり（Cling to Cliff）<span class="tag combo">コンボ推奨</span></div>
+      <p class="desc">ブロックの縁にぶら下がって静止。<span class="key">ジャンプ</span> で登れる。ウォールランと組み合わせると <strong>5ブロック</strong>越えも可能。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td>壁の前で <span class="key">右クリック</span> 長押し</td></tr>
-        <tr><td>トグルモード：もう一度押して離す</td></tr>
+        <tr><td>トグルモード：もう一度押して解除</td></tr>
       </table>
-      <div class="note">⚠️ 氷などの滑るブロックは不可 / ウォールランと組み合わせると <span class="highlight">5ブロック</span> 越えも可能！</div>
+      <div class="note">⚠️ 氷などの滑るブロックは不可</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🐱</span>
-        <h3>キャットリープ（Cat Leap）</h3>
-      </div>
-      <p>壁の上部に飛びついてつかまる技。名前は「跳ぶ」技に聞こえるが、実際には<strong>壁への着地技</strong>。崖つかまりとセットで使うと◎。クールタイムあり。</p>
+    <div class="action" id="catleap">
+      <div class="action-name"><span class="icon">🐱</span>キャットリープ（Cat Leap）</div>
+      <p class="desc">壁の上部に飛びついてつかまる技。名前は「跳ぶ」技に聞こえるが実際は<strong>壁への着地技</strong>。崖つかまりとセットで使うと◎。クールタイムあり。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td>ファストラン中に <span class="key">Shift</span> を押してすぐ離す</td></tr>
       </table>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🧗</span>
-        <h3>ウォールラン・垂直（Wall Run）</h3>
-        <span class="tag combo">最高高度</span>
-      </div>
-      <p>壁を使って垂直に跳び上がる。最大ほぼ <span class="highlight">3ブロック</span> の高さ。崖つかまりと組み合わせると <span class="highlight">5ブロック</span> 越えも可能。</p>
+    <div class="action" id="v-wall-run">
+      <div class="action-name"><span class="icon">🧗</span>ウォールラン・垂直（Wall Run）<span class="tag combo">最高高度</span></div>
+      <p class="desc">壁を使って垂直に跳び上がる。最大ほぼ <strong>3ブロック</strong>の高さ。崖つかまりと組み合わせると <strong>5ブロック</strong>越えも可能。</p>
       <table>
         <tr><th>操作</th></tr>
-        <tr><td>水平線より<strong>上</strong>を向いてファストランで壁に向かい、<span class="key">ジャンプキー</span> を押したまま壁に飛び込む</td></tr>
+        <tr><td>水平線より<strong>上</strong>を向いてファストランで壁に向かい、<span class="key">ジャンプ</span> を押したまま壁に飛び込む</td></tr>
       </table>
       <div class="note">⚠️ 氷などの滑るブロックは不可</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🏃‍♂️</span>
-        <h3>ウォールラン・水平（Horizontal Wall Run）</h3>
-      </div>
-      <p>壁に沿って横方向に走る。遠くの足場へのジャンプに役立つ。ウォールジャンプと組み合わせて壁から壁への連続移動も可能。</p>
+    <div class="action" id="h-wall-run">
+      <div class="action-name"><span class="icon">🏃‍♂️</span>ウォールラン・水平（Horizontal Wall Run）</div>
+      <p class="desc">壁に沿って横方向に走る。遠くの足場へのジャンプに役立つ。ウォールジャンプと組み合わせて壁から壁への連続移動も可能。</p>
       <table>
         <tr><th>モード</th><th>操作</th></tr>
         <tr><td>デフォルト</td><td>壁に沿って空中でファストラン ＋ <span class="key">R</span> 長押し</td></tr>
@@ -415,12 +416,9 @@
       <div class="note">⚠️ 氷などの滑るブロックは不可</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🦵</span>
-        <h3>ウォールジャンプ（Wall Jump）</h3>
-      </div>
-      <p>壁を蹴ってさらに遠くへジャンプ。水平ウォールランと組み合わせて連続ジャンプも可能。</p>
+    <div class="action" id="wall-jump">
+      <div class="action-name"><span class="icon">🦵</span>ウォールジャンプ（Wall Jump）</div>
+      <p class="desc">壁を蹴ってさらに遠くへジャンプ。水平ウォールランと組み合わせて連続ジャンプも可能。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td>空中で壁を<strong>背にして</strong> <span class="key">スペース</span></td></tr>
@@ -428,134 +426,104 @@
       <div class="note">⚠️ 氷ブロックでは高さが得られない</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🌊</span>
-        <h3>ウォールスライド（Wall Slide）</h3>
-      </div>
-      <p>壁にしがみついて落下速度を落とす。落下ダメージ軽減・無効化できる。ブロックの滑りやすさに影響される。</p>
+    <div class="action" id="wall-slide">
+      <div class="action-name"><span class="icon">🌊</span>ウォールスライド（Wall Slide）</div>
+      <p class="desc">壁にしがみついて落下速度を落とす。落下ダメージ軽減・無効化できる。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td>空中で壁の前で <span class="key">右クリック</span> 長押し</td></tr>
       </table>
-      <div class="note">⚠️ 落下速度を大幅に下げすぎるとダメージを受ける場合あり</div>
+      <div class="note">⚠️ 落下速度を下げすぎるとダメージを受ける場合あり</div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🏗️</span>
-        <h3>ポール登り（Climb Poles）</h3>
-        <span class="tag auto">自動</span>
-      </div>
-      <p>鉄格子・積み重ねたフェンス・エンドロッドなどのポール状ブロックをハシゴのように登れる。特別な操作不要で自動動作。</p>
+    <div class="action" id="poles">
+      <div class="action-name"><span class="icon">🏗️</span>ポール登り（Climb Poles）<span class="tag auto">自動</span></div>
+      <p class="desc">鉄格子・積み重ねたフェンス・エンドロッドなどのポール状ブロックをハシゴのように登れる。特別な操作不要で自動動作。</p>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🪝</span>
-        <h3>ぶら下がり（Hang Down）</h3>
-      </div>
-      <p>チェーンやエンドロッドなどの横に細いブロックにぶら下がる。ゆっくり移動でき、ジャンプキーで前方にジャンプ。</p>
+    <div class="action" id="hang">
+      <div class="action-name"><span class="icon">🪝</span>ぶら下がり（Hang Down）</div>
+      <p class="desc">チェーンやエンドロッドなどの横に細いブロックにぶら下がる。ゆっくり移動でき、ジャンプキーで前方にジャンプ。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td>細いブロックの下で <span class="key">ハングダウンキー</span></td></tr>
       </table>
     </div>
-
-  </section>
+  </div>
 
   <!-- ジャンプ系 -->
-  <section id="jump">
-    <h2>🚀 ジャンプ系アクション</h2>
+  <div class="section">
+    <div class="section-title">🚀 ジャンプ系アクション</div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">⚡</span>
-        <h3>チャージジャンプ（Charge Jump）</h3>
-      </div>
-      <p>パワーを溜めて高くジャンプ。最大で通常ジャンプの <span class="highlight">2倍の高さ</span>。崖つかまりと組み合わせると <span class="highlight">4ブロック</span> 越えも可能。スタミナHUDで溜まり具合を確認できる。</p>
+    <div class="action" id="charge-jump">
+      <div class="action-name"><span class="icon">⚡</span>チャージジャンプ（Charge Jump）</div>
+      <p class="desc">パワーを溜めて高くジャンプ。最大で通常の <strong>2倍の高さ</strong>。崖つかまりと組み合わせると <strong>4ブロック</strong>越えも可能。スタミナHUDで溜まり具合を確認できる。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td><span class="key">Shift</span> でパワーを溜める（動くとキャンセル）→ 好きなタイミングで <span class="key">ジャンプ</span></td></tr>
       </table>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🌀</span>
-        <h3>フリッピング（Flipping）</h3>
-      </div>
-      <p>前転・後転の特殊ジャンプアニメーション。2種類。</p>
+    <div class="action" id="flipping">
+      <div class="action-name"><span class="icon">🌀</span>フリッピング（Flipping）</div>
+      <p class="desc">前転・後転の特殊ジャンプアニメーション。2種類。</p>
       <table>
         <tr><th>モード</th><th>操作</th></tr>
         <tr><td>デフォルト</td><td><span class="key">ジャンプ</span> ＋ <span class="key">前 or 後ろ</span> キー同時押し</td></tr>
         <tr><td>左右同時押し</td><td><span class="key">←</span> ＋ <span class="key">→</span> 同時押し</td></tr>
-        <tr><td>専用キー</td><td>フリッピングキー（デフォルト未設定）</td></tr>
+        <tr><td>専用キー</td><td>フリッピングキー（デフォルト：未設定）</td></tr>
       </table>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🪂</span>
-        <h3>ダイブ（Dive）</h3>
-      </div>
-      <p>高所から広い空間や水中へのジャンプ、または一定時間落下後に発動する特殊アクション。</p>
+    <div class="action" id="dive">
+      <div class="action-name"><span class="icon">🪂</span>ダイブ（Dive）</div>
+      <p class="desc">高所から広い空間や水中へのジャンプ、または一定時間落下後に発動する特殊アクション。</p>
       <table>
         <tr><th>発動条件</th><th>操作</th></tr>
         <tr><td>地上から</td><td>ファストランで広い空間 or 水に <span class="key">ジャンプ</span></td></tr>
         <tr><td>空中から</td><td>数秒落下後に <span class="key">ジャンプ</span> 長押し</td></tr>
       </table>
       <div class="sub-action">
-        <h4>🌌 スカイダイブ（Sky Dive）</h4>
-        <p>ダイブ中に再度 <span class="key">ジャンプ</span> → 落下速度がやや遅くなり、水平速度がUP。もう一度押すと解除。</p>
+        <div class="sub-action-name">🌌 スカイダイブ（Sky Dive）</div>
+        <p class="desc">ダイブ中に再度 <span class="key">ジャンプ</span> → 落下速度がやや遅くなり水平速度がUP。もう一度押すと解除。</p>
       </div>
     </div>
-
-  </section>
+  </div>
 
   <!-- 着地系 -->
-  <section id="land">
-    <h2>🛬 着地系アクション</h2>
+  <div class="section">
+    <div class="section-title">🛬 着地系アクション</div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🔄</span>
-        <h3>ブレイクフォール（Breakfall）</h3>
-      </div>
-      <p>着地の衝撃を吸収する技の総称。2種類。</p>
-
+    <div class="action" id="breakfall">
+      <div class="action-name"><span class="icon">🔄</span>ブレイクフォール（Breakfall）</div>
+      <p class="desc">着地の衝撃を吸収する技の総称。2種類。</p>
       <div class="sub-action">
-        <h4>🔄 ロール（Roll）</h4>
-        <p>着地の衝撃をローリングに変換。速度を落とさず落下ダメージを軽減。</p>
+        <div class="sub-action-name">🔄 ロール（Roll）</div>
+        <p class="desc">着地の衝撃をローリングに変換。速度を落とさず落下ダメージを軽減。</p>
         <table>
           <tr><th>操作</th></tr>
           <tr><td>着地時に <span class="key">前 or 後ろ</span> ＋ <span class="key">R</span> 長押し</td></tr>
         </table>
-        <div class="note">💡 着地の直前にタイミングよく押すと「ジャストブレイクフォール」で効果UP！</div>
+        <div class="note">💡 着地の直前に押すと「ジャストブレイクフォール」で効果UP</div>
       </div>
-
       <div class="sub-action">
-        <h4>🦵 セーフティタップ（Safety Tap）</h4>
-        <p>膝を曲げて衝撃を吸収。ロールする余裕がない場所向け。</p>
+        <div class="sub-action-name">🦵 セーフティタップ（Safety Tap）</div>
+        <p class="desc">膝を曲げて衝撃を吸収。ロールする余裕がない場所向け。</p>
         <table>
           <tr><th>操作</th></tr>
           <tr><td>着地時に <span class="key">R</span> だけ長押し</td></tr>
         </table>
       </div>
     </div>
-
-  </section>
+  </div>
 
   <!-- その他 -->
-  <section id="misc">
-    <h2>⚙️ その他アクション</h2>
+  <div class="section">
+    <div class="section-title">⚙️ その他アクション</div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">💨</span>
-        <h3>ドッジ（Dodge）</h3>
-      </div>
-      <p>短距離を素早く回避。回避中は<strong>無敵フレーム</strong>あり（一部ダメージ除く）。クールタイムあり。難しいが使えると命が助かる。</p>
+    <div class="action" id="dodge">
+      <div class="action-name"><span class="icon">💨</span>ドッジ（Dodge）</div>
+      <p class="desc">短距離を素早く回避。回避中は<strong>無敵フレーム</strong>あり（一部ダメージ除く）。クールタイムあり。</p>
       <table>
         <tr><th>モード</th><th>操作</th></tr>
         <tr><td>デフォルト</td><td><span class="key">移動キー</span> ＋ <span class="key">R</span></td></tr>
@@ -563,63 +531,50 @@
       </table>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🔃</span>
-        <h3>クイックターン（Quick Turn）</h3>
-      </div>
-      <p>一瞬で後ろを向く。</p>
+    <div class="action" id="quick-turn">
+      <div class="action-name"><span class="icon">🔃</span>クイックターン（Quick Turn）</div>
+      <p class="desc">一瞬で後ろを向く。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td>クイックターンキー（デフォルト：未設定）</td></tr>
       </table>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🫣</span>
-        <h3>ブロックに隠れる（Hide in Block）</h3>
-      </div>
-      <p>葉ブロックや干し草ブロックの中に隠れる。他プレイヤーから<strong>名前も見えなくなる</strong>。ブロック破壊・アイテム使用不可。ダメージを受けると強制解除。</p>
+    <div class="action" id="hide">
+      <div class="action-name"><span class="icon">🫣</span>ブロックに隠れる（Hide in Block）</div>
+      <p class="desc">葉ブロックや干し草ブロックの中に隠れる。他プレイヤーから<strong>名前も見えなくなる</strong>。ブロック破壊・アイテム使用不可。ダメージを受けると強制解除。</p>
       <table>
         <tr><th>操作</th></tr>
         <tr><td>スニーク中に対象ブロックの近くで <span class="key">C</span></td></tr>
       </table>
       <div class="note">🍃 隠れられるブロック：葉ブロック / 干し草ブロック</div>
     </div>
-
-  </section>
+  </div>
 
   <!-- アイテム・設備 -->
-  <section id="items">
-    <h2>🎒 アイテム・設備</h2>
+  <div class="section">
+    <div class="section-title">🎒 アイテム・設備</div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">⚡</span>
-        <h3>エナジードリンク（Energy Drink）</h3>
-      </div>
-      <p>飲むと「不屈」効果が付与され、<strong>スタミナ消費なし</strong>でParCoolアクションが使い放題になる。醸造台で作成。</p>
+    <div class="action" id="energy-drink">
+      <div class="action-name"><span class="icon">⚡</span>エナジードリンク（Energy Drink）</div>
+      <p class="desc">飲むと「不屈」効果が付与され、<strong>スタミナ消費なし</strong>でParCoolアクションが使い放題になる。醸造台で作成。</p>
       <ul class="recipe">
         <li>エナジードリンク：醸造した水瓶 ＋ ネザークォーツ</li>
         <li>低品質エナジードリンク：醸造した水瓶 ＋ 鶏肉 or 毒ジャガイモ（効果時間短め＋副作用あり）</li>
-        <li>さらに低品質から：低品質エナジードリンク ＋ ネザークォーツ → 通常品に昇格</li>
+        <li>低品質 → 通常品に昇格：低品質エナジードリンク ＋ ネザークォーツ</li>
       </ul>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <span class="card-icon">🚡</span>
-        <h3>ジップライン（Zipline）</h3>
-      </div>
-      <p>2点間をロープで繋いで移動できる設備。</p>
+    <div class="action" id="zipline">
+      <div class="action-name"><span class="icon">🚡</span>ジップライン（Zipline）</div>
+      <p class="desc">2点間をロープで繋いで移動できる設備。</p>
       <table>
         <tr><th>アイテム</th><th>説明</th></tr>
         <tr><td>ジップラインフック（木材 or 鉄）</td><td>ブロックの上・下・側面に設置可</td></tr>
         <tr><td>ジップラインロープ</td><td>染料で色変え可。スニーク＋使用でテンション変更（4段階）</td></tr>
       </table>
       <div class="sub-action">
-        <h4>設置手順</h4>
+        <div class="sub-action-name">設置手順</div>
         <ol class="steps">
           <li>ロープを1つ目のフックに使用して始点を設定</li>
           <li>2つ目のフックに使用してロープを接続</li>
@@ -627,23 +582,35 @@
         </ol>
       </div>
       <div class="sub-action">
-        <h4>乗り方</h4>
-        <table>
-          <tr><th>操作</th></tr>
-          <tr><td>ジップラインに近づきながらジャンプし <span class="key">右クリック</span> 長押し</td></tr>
-        </table>
-        <div class="note">💡 移動キーで方向調整可能。急勾配では登れない。</div>
+        <div class="sub-action-name">乗り方</div>
+        <p class="desc">ジップラインに近づきながらジャンプし <span class="key">右クリック</span> 長押し。移動キーで方向調整可。急勾配では登れない。</p>
       </div>
     </div>
-
-  </section>
+  </div>
 
   <footer>
     <p>ParCool MOD by alRex-U　|　このガイドは非公式の日本語まとめです</p>
-    <p style="margin-top:4px"><a href="https://github.com/alRex-U/ParCool" style="color:var(--accent)">GitHub</a> / <a href="https://discord.com/invite/T3kSXWRAFj" style="color:var(--accent)">Discord</a></p>
+    <p style="margin-top:4px"><a href="https://github.com/alRex-U/ParCool">GitHub</a> / <a href="https://discord.com/invite/T3kSXWRAFj">Discord</a></p>
   </footer>
+</div>
 
-</main>
+<script>
+  // スクロール連動でサイドバーのアクティブリンクを更新
+  const links = document.querySelectorAll('#sidebar a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(a => a.classList.remove('active'));
+        const active = [...links].find(a => a.getAttribute('href') === '#' + entry.target.id);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
 
 </body>
 </html>
